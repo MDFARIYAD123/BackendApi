@@ -9,7 +9,6 @@ import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 
 
-
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService,

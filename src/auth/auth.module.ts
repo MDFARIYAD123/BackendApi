@@ -10,7 +10,7 @@ import { GoogleStrategy } from './google.strategy';
 import { JwtStrategy } from './jwt-strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MicrosoftStrategy } from './microsoft.strategy';
-import { EmailService } from './email.service';
+
 
 @Module({
   imports: [
@@ -25,9 +25,9 @@ import { EmailService } from './email.service';
       }),
     }),
   ],
-  providers: [AuthService, LocalStrategy, GoogleStrategy, JwtStrategy, MicrosoftStrategy, EmailService],
+  providers: [AuthService, LocalStrategy, GoogleStrategy, JwtStrategy, MicrosoftStrategy],
   controllers: [AuthController],
-  exports: [EmailService]
+
 })
 export class AuthModule { }
 

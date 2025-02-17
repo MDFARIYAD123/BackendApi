@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Users } from './users.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { EmailService } from './email.service';
+
 
 
 
@@ -15,7 +15,7 @@ export class AuthService {
     constructor(
         @InjectRepository(Users) private usersRepository: Repository<Users>,
         private jwtService: JwtService,
-        private emailService: EmailService,
+
     ) { }
 
 

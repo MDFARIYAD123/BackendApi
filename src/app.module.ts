@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config'; // Import ConfigService
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { Users } from './auth/users.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
@@ -11,17 +10,15 @@ import configuration from './config/configuration';
 
 @Module({
   imports: [
-    // ConfigModule for reading .env variables
+
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [configuration], // Makes the configuration globally available
+      load: [configuration],
     }),
 
-    // TypeOrmModule with database connection configured from environment variables
     TypeOrmModule.forRootAsync({
 
       imports: [ConfigModule],
-      // Import ConfigModule to access its values
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get<string>('database.host'),
@@ -31,6 +28,7 @@ import configuration from './config/configuration';
         database: configService.get<string>('database.name'),
         autoLoadEntities: true,
         synchronize: true, // Set to false in production
+
       }),
       inject: [ConfigService], // Inject ConfigService
     }),
@@ -71,38 +69,5 @@ export class AppModule { }
 
 
 
-
-
-
-// import { Module } from '@nestjs/common';
-// import { TypeOrmModule } from '@nestjs/typeorm';
-// import { ConfigModule } from '@nestjs/config';
-// import { AuthModule } from './auth/auth.module';
-// import { User } from './auth/user.entity';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
-
-// @Module({
-//   imports: [
-//     ConfigModule.forRoot({
-//       envFilePath: '.env',
-//       isGlobal: true,
-//     }),
-//     TypeOrmModule.forRoot({
-//       type: 'postgres',
-//       host: 'localhost',
-//       port: 5432,
-//       username: 'postgres',
-//       password: 'Fariyad123@',
-//       database: 'nestjs_dev_db',
-//       entities: [User],
-//       synchronize: true, // Set to false in production
-//     }),
-//     AuthModule,
-//   ],
-//   controllers: [AppController],
-//   providers: [AppService],
-// })
-// export class AppModule { }
 
 
